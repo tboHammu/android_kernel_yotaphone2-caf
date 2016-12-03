@@ -205,29 +205,29 @@
 };
 
 &master0 {
-	qcom,hw-thigh = <78>;
-	qcom,hw-tlow = <114>;
-	qcom,hw-tsu-sto = <28>;
-	qcom,hw-tsu-sta = <28>;
-	qcom,hw-thd-dat = <10>;
-	qcom,hw-thd-sta = <77>;
-	qcom,hw-tbuf = <118>;
-	qcom,hw-scl-stretch-en = <0>;
-	qcom,hw-trdhld = <6>;
-	qcom,hw-tsp = <1>;
-	status = "ok";
+        qcom,hw-thigh = <15>;
+        qcom,hw-tlow = <33>;
+        qcom,hw-tsu-sto = <15>;
+        qcom,hw-tsu-sta = <15>;
+        qcom,hw-thd-dat = <18>;
+        qcom,hw-thd-sta = <15>;
+        qcom,hw-tbuf = <33>;
+        qcom,hw-scl-stretch-en = <0>;
+        qcom,hw-trdhld = <6>;
+        qcom,hw-tsp = <3>;
+        status = "ok";
 };
 
 &master1 {
-	qcom,hw-thigh = <78>;
-	qcom,hw-tlow = <114>;
-	qcom,hw-tsu-sto = <28>;
-	qcom,hw-tsu-sta = <28>;
-	qcom,hw-thd-dat = <10>;
-	qcom,hw-thd-sta = <77>;
-	qcom,hw-tbuf = <118>;
-	qcom,hw-scl-stretch-en = <0>;
-	qcom,hw-trdhld = <6>;
-	qcom,hw-tsp = <1>;
-	status = "ok";
+        qcom,hw-thigh = <15>;
+        qcom,hw-tlow = <33>;
+        qcom,hw-tsu-sto = <15>;
+        qcom,hw-tsu-sta = <15>;
+        qcom,hw-thd-dat = <18>;
+        qcom,hw-thd-sta = <15>;
+        qcom,hw-tbuf = <33>;
+        qcom,hw-scl-stretch-en = <0>;
+        qcom,hw-trdhld = <6>;
+        qcom,hw-tsp = <3>;
+        status = "ok";
 };

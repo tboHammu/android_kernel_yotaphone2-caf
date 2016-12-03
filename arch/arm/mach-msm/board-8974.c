@@ -24,6 +24,7 @@
 #include <linux/regulator/krait-regulator.h>
 #include <linux/msm_tsens.h>
 #include <linux/msm_thermal.h>
+#include <linux/persistent_ram.h>
 #include <asm/mach/map.h>
 #include <asm/hardware/gic.h>
 #include <asm/mach/map.h>
@@ -49,6 +50,9 @@
 #include "modem_notifier.h"
 #include "platsmp.h"
 
+#define PERSISTENT_RAM_BASE 0x70000000
+#define PERSISTENT_RAM_SIZE SZ_1M
+#define RAM_CONSOLE_SIZE (124*SZ_1K * 2)
 
 static struct memtype_reserve msm8974_reserve_table[] __initdata = {
 	[MEMTYPE_SMI] = {
@@ -71,11 +75,47 @@ static struct reserve_info msm8974_reserve_info __initdata = {
 	.paddr_to_memtype = msm8974_paddr_to_memtype,
 };
 
+static struct persistent_ram_descriptor pram_descs[] = {
+#ifdef CONFIG_ANDROID_RAM_CONSOLE
+         {
+                 .name = "ram_console",
+                 .size = RAM_CONSOLE_SIZE,
+         },
+#endif
+};
+
+static struct persistent_ram msm8974_persistent_ram = {
+       .start = PERSISTENT_RAM_BASE,
+       .size = PERSISTENT_RAM_SIZE,
+       .num_descs = ARRAY_SIZE(pram_descs),
+       .descs = pram_descs,
+};
+
+void __init add_persistent_ram(void)
+{
+    persistent_ram_early_init(&msm8974_persistent_ram);
+}
+
+#ifdef CONFIG_ANDROID_RAM_CONSOLE
+static struct platform_device ram_console_device = {
+         .name = "ram_console",
+         .id = -1,
+};
+
+void __init add_ramconsole_devices(void)
+{
+    platform_device_register(&ram_console_device);
+}
+#endif /* CONFIG_ANDROID_RAM_CONSOLE */
+
 void __init msm_8974_reserve(void)
 {
 	reserve_info = &msm8974_reserve_info;
 	of_scan_flat_dt(dt_scan_for_memory_reserve, msm8974_reserve_table);
 	msm_reserve();
+#ifdef CONFIG_ANDROID_RAM_CONSOLE
+	add_persistent_ram();
+#endif
 }
 
 static void __init msm8974_early_memory(void)
@@ -106,6 +146,9 @@ void __init msm8974_add_drivers(void)
 		msm_clock_init(&msm8974_clock_init_data);
 	tsens_tm_init_driver();
 	msm_thermal_device_init();
+#ifdef CONFIG_ANDROID_RAM_CONSOLE
+         add_ramconsole_devices();
+#endif
 }
 
 static struct of_dev_auxdata msm_hsic_host_adata[] = {

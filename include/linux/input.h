@@ -1162,6 +1162,49 @@ struct ff_effect {
 #define FF_MAX		0x7f
 #define FF_CNT		(FF_MAX+1)
 
+#define KEY_BS_KEY0 0x2a0       //Single key press
+#define KEY_BS_KEY1 0x2a1       //Single key press
+#define KEY_BS_KEY2 0x2a2       // Single key press
+#define KEY_BS_KEY3 0x2a3       //Single key press
+#define KEY_BS_KEY4 0x2a4       // Single key press
+#define KEY_BS_KEY5 0x2a5       //Single key press
+#define KEY_BS_KEY6 0x2a6       //Single key press
+#define KEY_BS_KEY7 0x2a7       //Single key press
+
+
+#define KEY_BS_GESTURE_SWIPE_RIGHT      0x2f0    /* GESTUREEN:4 => When MCU notifies Swipe right gesture*/
+#define KEY_BS_GESTURE_SWIPE_LEFT       0x2f1    /* GESTUREEN:3 => When MCU notifies Swipe left gesture*/
+#define KEY_BS_GESTURE_SINGLE_TAP       0x2f2    /* GESTUREEN:0 => When MCU notifies single tap gesture*/
+#define KEY_BS_GESTURE_LONG_TAP         0x2f3    /* GESTUREEN:2 => When MCU notifies long tap gesture*/
+#define KEY_BS_GESTURE_LEFT_RIGHT_LEFT  0x2f4    //When MCU notifies Swipe left-right-left gesture
+#define KEY_BS_GESTURE_RIGHT_LEFT_RIGHT 0x2f5    // When MCU notifies Swipe right-left right gesture
+#define KEY_BS_GESTURE_DOUBLE_TAP       0x2f6    /* GESTUREEN:1 => When MCU notifies double tap gesture*/
+#define KEY_BS_GESTURE_SCROLL_LEFT      0x2f7
+#define KEY_BS_GESTURE_SCROLL_RIGHT     0x2f8
+
+
+#define KEY_FS_GESTURE_DOWN_SWIPE               0x2fa           /* GESTUREEN:7 => When MCU notifies down swipe gesture*/
+#define KEY_FS_GESTURE_UP_SWIPE                 0x2fb           /* GESTUREEN:6 => When MCU notifies up swipe gesture*/
+#define KEY_FS_GESTURE_LONG_TAP                 0x2fc           /* GESTUREEN:5 => When MCU notifies long swipe gesture*/
+
+#define KEY_FS_GESTURE_PUT_TO_BACK      0x2b0
+#define KEY_FS_GESTURE_RECENT_APPS      0x2b1
+#define KEY_FS_GESTURE_TOP_AREA_LONG_TOUCH  0x2b2
+#define KEY_FS_GESTURE_SCREEN_OFF       0x2b3
+#define KEY_FS_GESTURE_SCREEN_ON        0x2b4
+#define KEY_FS_GESTURE_SINGLE_TAP       0x2b5
+#define KEY_FS_GESTURE_HOME             172
+#define KEY_FS_GESTURE_BACK             158
+#define KEY_FS_GESTURE_SEARCH           217
+
+#define KEY_CS_GESTURE_SWIPE_LEFT    0x2b6
+#define KEY_CS_GESTURE_SWIPE_RIGHT   0x2b7
+
+#define KEY_FS_GESTURE_LOCK          0x2b8
+#define KEY_BS_GESTURE_LOCK          0x2b9
+#define KEY_BS_GESTURE_UNLOCK        0x2ba
+#define KEY_FS_GESTURE_UNLOCK        0x2bb
+
 #ifdef __KERNEL__
 
 /*

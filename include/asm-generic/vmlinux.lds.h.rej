@@ -1,0 +1,25 @@
+--- include/asm-generic/vmlinux.lds.h	2016-11-28 15:55:48.068517337 +0200
++++ ../steadykernel/include/asm-generic/vmlinux.lds.h	2016-11-02 22:10:32.691953971 +0200
+@@ -616,6 +616,11 @@
+ 		*(.init.setup)						\
+ 		VMLINUX_SYMBOL(__setup_end) = .;
+ 
++#define DEFERRED_INITCALLS(level)					\
++		VMLINUX_SYMBOL(__deferred_initcall##level##_start) = .;	\
++		*(.deferred_initcall##level##.init)			\
++		VMLINUX_SYMBOL(__deferred_initcall##level##_end) = .;
++
+ #define INIT_CALLS_LEVEL(level)						\
+ 		VMLINUX_SYMBOL(__initcall##level##_start) = .;		\
+ 		*(.initcall##level##.init)				\
+@@ -633,7 +638,9 @@
+ 		INIT_CALLS_LEVEL(rootfs)				\
+ 		INIT_CALLS_LEVEL(6)					\
+ 		INIT_CALLS_LEVEL(7)					\
+-		VMLINUX_SYMBOL(__initcall_end) = .;
++		VMLINUX_SYMBOL(__initcall_end) = .;			\
++		DEFERRED_INITCALLS(0)					\
++		DEFERRED_INITCALLS(1)
+ 
+ #define CON_INITCALL							\
+ 		VMLINUX_SYMBOL(__con_initcall_start) = .;		\

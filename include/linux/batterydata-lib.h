@@ -131,6 +131,7 @@ struct bms_battery_data {
 	defined(CONFIG_PM8921_BMS_MODULE) || \
 	defined(CONFIG_QPNP_BMS)
 extern struct bms_battery_data  palladium_1500_data;
+extern struct bms_battery_data  palladium_2500_data;
 extern struct bms_battery_data  desay_5200_data;
 extern struct bms_battery_data  oem_batt_data;
 extern struct bms_battery_data QRD_4v35_2000mAh_data;

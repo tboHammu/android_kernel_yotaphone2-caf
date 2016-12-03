@@ -9,7 +9,7 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  */
-
+/include/ "dsi-panel-EA8062-1080p-video.dtsi"
 /include/ "dsi-panel-orise-720p-video.dtsi"
 /include/ "dsi-panel-toshiba-720p-video.dtsi"
 /include/ "dsi-panel-sharp-qhd-video.dtsi"

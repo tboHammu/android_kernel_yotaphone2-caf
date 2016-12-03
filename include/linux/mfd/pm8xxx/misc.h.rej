@@ -1,0 +1,17 @@
+--- include/linux/mfd/pm8xxx/misc.h	2016-11-28 15:55:48.892517326 +0200
++++ ../steadykernel/include/linux/mfd/pm8xxx/misc.h	2016-11-02 22:10:32.731953972 +0200
+@@ -60,6 +60,14 @@
+ 	enum pm8xxx_coincell_chg_resistor	resistor;
+ };
+ 
++#ifdef CONFIG_TCMD
++struct qpnp_coincell_chg {
++	int state;
++	int voltage;
++	int resistance;
++};
++#endif
++
+ enum pm8xxx_smpl_delay {
+ 	PM8XXX_SMPL_DELAY_0p5,
+ 	PM8XXX_SMPL_DELAY_1p0,

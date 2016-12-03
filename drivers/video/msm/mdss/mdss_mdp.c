@@ -49,7 +49,6 @@
 #include <mach/memory.h>
 #include <mach/msm_memtypes.h>
 #include <mach/rpm-regulator-smd.h>
-#include <mach/scm.h>
 
 #include "mdss.h"
 #include "mdss_fb.h"
@@ -81,8 +80,6 @@ struct msm_mdp_interface mdp5 = {
 
 #define IB_QUOTA 800000000
 #define AB_QUOTA 800000000
-
-#define MEM_PROTECT_SD_CTRL 0xF
 
 static DEFINE_SPINLOCK(mdp_lock);
 static DEFINE_MUTEX(mdp_clk_lock);
@@ -1231,7 +1228,6 @@ static int mdss_mdp_probe(struct platform_device *pdev)
 	platform_set_drvdata(pdev, mdata);
 	mdss_res = mdata;
 	mutex_init(&mdata->reg_lock);
-	atomic_set(&mdata->sd_client_count, 0);
 
 	res = platform_get_resource_byname(pdev, IORESOURCE_MEM, "mdp_phys");
 	if (!res) {
@@ -2304,11 +2300,15 @@ static int mdss_mdp_parse_dt_misc(struct platform_device *pdev)
 	 * experimentally determined and should be tuned in device
 	 * tree.
 	 */
+#ifdef YOTA_CHINA_CTA
+	mdata->ib_factor.numer = 2;
+	mdata->ib_factor.denom = 1;
+#else
 	mdata->ib_factor.numer = 6;
 	mdata->ib_factor.denom = 5;
 	mdss_mdp_parse_dt_fudge_factors(pdev, "qcom,mdss-ib-factor",
 		&mdata->ib_factor);
-
+#endif
 	/*
 	 * Set overlap ib value equal to ib by default. This value can
 	 * be tuned in device tree to be different from ib.
@@ -2638,26 +2638,6 @@ int mdss_mdp_footswitch_ctrl_ulps(int on, struct device *dev)
 	}
 
 	return 0;
-}
-
-int mdss_mdp_secure_display_ctrl(unsigned int enable)
-{
-	struct sd_ctrl_req {
-		unsigned int enable;
-	} __attribute__ ((__packed__)) request;
-	unsigned int resp = -1;
-	int ret = 0;
-
-	request.enable = enable;
-
-	ret = scm_call(SCM_SVC_MP, MEM_PROTECT_SD_CTRL,
-		&request, sizeof(request), &resp, sizeof(resp));
-	pr_debug("scm_call MEM_PROTECT_SD_CTRL(%u): ret=%d, resp=%x",
-				enable, ret, resp);
-	if (ret)
-		return ret;
-
-	return resp;
 }
 
 static inline int mdss_mdp_suspend_sub(struct mdss_data_type *mdata)
